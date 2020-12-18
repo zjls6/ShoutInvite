@@ -1,0 +1,5 @@
+name: ShoutInvite
+version: ${project.version}
+main: me.zjls.shoutinvite.Main
+description: 跨服喊话邀请插件
+author: zjls

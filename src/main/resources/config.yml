@@ -1,0 +1,3 @@
+message:
+  shout-format: "[喊话][%server%][%player%]: %message%"
+  shout-failed:
