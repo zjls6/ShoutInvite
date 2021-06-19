@@ -27,11 +27,10 @@ public class Main extends Plugin {
         }
 
         configFile = new File(getDataFolder(),"config.yml");
-
             try {
                 if (!configFile.exists()){
                     configFile.createNewFile();
-                    config.set("message.shout-format", "&6[喊话]&e[%server%]&b[%player%]&8: &f%message%");
+                    config.set("message.shout-format", "&6[喊话]&e[%server%(%players%)]&b[%player%]&8: &f%message%");
                     config.set("message.invite-format", "&e[点击传送]");
                     config.set("message.run-in-console", "§c该命令不能在控制台执行！");
                     config.set("message.run-in-login", "§c该命令不能在登录服执行！");

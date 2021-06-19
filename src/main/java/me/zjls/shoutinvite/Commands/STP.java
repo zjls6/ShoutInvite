@@ -15,7 +15,7 @@ public class STP extends Command {
     public void execute(CommandSender sender, String[] args) {
         if (sender instanceof ProxiedPlayer) {
             ProxiedPlayer p = (ProxiedPlayer) sender;
-            if (p.getServer().getInfo().getName().equalsIgnoreCase("Login")){
+            if (p.getServer().getInfo().getName().equalsIgnoreCase("登录服")){
                 return;
             }
             if (args.length == 0){
@@ -25,7 +25,6 @@ public class STP extends Command {
             try {
                 p.connect(target);
             }catch (NullPointerException e){
-                e.printStackTrace();
                 p.sendMessage(new TextComponent("§c找不到这个服务器！"));
             }
 
