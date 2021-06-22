@@ -1,3 +1,8 @@
 message:
-  shout-format: "[喊话][%server%][%player%]: %message%"
-  shout-failed:
+  shout-format: "&6[喊话]&e[%server%(%players%)]&b[%player%]&8:&f%message%"
+  invite-format: "&e[点击传送]"
+  run-in-console: "§c该命令不能在控制台执行！"
+  run-in-login: "§c该命令不能在登录服执行！"
+
+cooldown:
+  time: 30

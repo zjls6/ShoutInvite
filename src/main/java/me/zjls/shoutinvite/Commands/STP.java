@@ -9,22 +9,24 @@ import net.md_5.bungee.api.plugin.Command;
 
 public class STP extends Command {
 
-    public STP() { super("stp"); }
+    public STP() {
+        super("stp");
+    }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (sender instanceof ProxiedPlayer) {
             ProxiedPlayer p = (ProxiedPlayer) sender;
-            if (p.getServer().getInfo().getName().equalsIgnoreCase("登录服")){
+            if (p.getServer().getInfo().getName().equalsIgnoreCase("登录服")) {
                 return;
             }
-            if (args.length == 0){
+            if (args.length == 0) {
                 return;
             }
             ServerInfo target = ProxyServer.getInstance().getServerInfo(args[0]);
             try {
                 p.connect(target);
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 p.sendMessage(new TextComponent("§c找不到这个服务器！"));
             }
 
