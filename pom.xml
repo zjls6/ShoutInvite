@@ -6,7 +6,7 @@
 
     <groupId>cn.butterfly-black</groupId>
     <artifactId>ShoutInvite</artifactId>
-    <version>1.0</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>ShoutInvite</name>
@@ -55,9 +55,10 @@
     </build>
 
     <repositories>
+
         <repository>
-            <id>sonatype</id>
-            <url>https://oss.sonatype.org/content/groups/public/</url>
+            <id>bungeecord-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
     </repositories>
 
@@ -65,8 +66,27 @@
         <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-api</artifactId>
-            <version>1.12-SNAPSHOT</version>
+            <version>1.16-R0.5-SNAPSHOT</version>
+            <type>jar</type>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-api</artifactId>
+            <version>1.16-R0.5-SNAPSHOT</version>
+            <type>javadoc</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

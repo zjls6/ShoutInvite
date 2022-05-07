@@ -1,4 +1,4 @@
-package me.zjls.shoutinvite.SQL;
+package me.zjls.shoutinvite.storage;
 
 import me.zjls.shoutinvite.Main;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -10,8 +10,8 @@ import java.util.UUID;
 
 public class SQLGetter {
 
-    private final Main plugin;
-    private final String tableName = "shoutinvite";
+    private Main plugin;
+    private String tableName = "shoutinvite";
 
     public SQLGetter(Main plugin) {
         this.plugin = plugin;
@@ -21,8 +21,8 @@ public class SQLGetter {
         PreparedStatement ps;
 
         try {
-            ps = Main.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS " + tableName +
-                    "(id INT(10) AUTO_INCREMENT,name VARCHAR(100),uuid VARCHAR(100),shouts INT(100),invites INT(100),colors INT(100),PRIMARY KEY (id))");
+            ps = plugin.SQL.getConnection().prepareStatement("Create Table IF Not Exists " + tableName +
+                    "(id Int(10) AUTO_INCREMENT,Name Varchar(100),uuid Varchar(100),shouts Int(100),invites Int(100),colors Int(100),Primary Key (id))");
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,8 +32,12 @@ public class SQLGetter {
     public boolean createPlayer(ProxiedPlayer p) {
         UUID uuid = p.getUniqueId();
         try {
-            if (!exists(uuid)) {
-                PreparedStatement ps = Main.SQL.getConnection().prepareStatement("INSERT IGNORE INTO " + tableName +
+            if (!plugin.getSQL().isConnected()) {
+                plugin.getSQL().connect();
+            }
+
+            if (!isExists(uuid)) {
+                PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("INSERT IGNORE INTO " + tableName +
                         " (name,uuid,shouts,invites,colors) VALUES (?,?,?,?,?)");
                 ps.setString(1, p.getName());
                 ps.setString(2, uuid.toString());
@@ -49,9 +53,13 @@ public class SQLGetter {
         return false;
     }
 
-    public boolean exists(UUID uuid) {
+    public boolean isExists(UUID uuid) {
+
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("SELECT * FROM " + tableName + " WHERE uuid=?");
+            if (!plugin.getSQL().isConnected()) {
+                plugin.getSQL().connect();
+            }
+            PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Select * From " + tableName + " Where uuid=?");
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next(); //player is found
@@ -63,7 +71,7 @@ public class SQLGetter {
 
     public int getShouts(UUID uuid) {
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("SELECT shouts FROM " + tableName + " WHERE uuid=?");
+            PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Select shouts From " + tableName + " Where uuid=?");
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -77,7 +85,7 @@ public class SQLGetter {
 
     public void setShouts(UUID uuid, int shouts) {
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET shouts=? WHERE uuid=?");
+            PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Update " + tableName + " Set shouts=? Where uuid=?");
             ps.setInt(1, shouts);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -88,7 +96,7 @@ public class SQLGetter {
 
     public void addShouts(UUID uuid, int shouts) {
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET shouts=? WHERE uuid=?");
+            PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Update " + tableName + " Set shouts=? Where uuid=?");
             ps.setInt(1, getShouts(uuid) + shouts);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -99,7 +107,7 @@ public class SQLGetter {
 
     public boolean delShouts(UUID uuid, int shouts) {
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET shouts=? WHERE uuid=?");
+            PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Update " + tableName + " Set shouts=? Where uuid=?");
             if (getShouts(uuid) == 0) {
                 return false;
             }
@@ -114,7 +122,7 @@ public class SQLGetter {
 
     public int getInvites(UUID uuid) {
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("SELECT invites FROM " + tableName + " WHERE uuid=?");
+            PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Select invites From " + tableName + " Where uuid=?");
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -128,7 +136,7 @@ public class SQLGetter {
 
     public void setInvites(UUID uuid, int invites) {
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET invites=? WHERE uuid=?");
+            PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Update " + tableName + " Set invites=? Where uuid=?");
             ps.setInt(1, invites);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -139,7 +147,7 @@ public class SQLGetter {
 
     public void addInvites(UUID uuid, int invites) {
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET invites=? WHERE uuid=?");
+            PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Update " + tableName + " Set invites=? Where uuid=?");
             ps.setInt(1, getInvites(uuid) + invites);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -150,7 +158,7 @@ public class SQLGetter {
 
     public boolean delInvites(UUID uuid, int invites) {
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET invites=? WHERE uuid=?");
+            PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Update " + tableName + " Set invites=? Where uuid=?");
             if (getInvites(uuid) == 0) {
                 return false;
             }
@@ -165,7 +173,7 @@ public class SQLGetter {
 
     public int getColors(UUID uuid) {
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("SELECT colors FROM " + tableName + " WHERE uuid=?");
+            PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Select colors From " + tableName + " Where uuid=?");
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -179,10 +187,11 @@ public class SQLGetter {
 
     public void setColors(UUID uuid, int colors) {
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET colors=? WHERE uuid=?");
-            ps.setInt(1, colors);
-            ps.setString(2, uuid.toString());
-            ps.executeUpdate();
+            try (PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Update " + tableName + " Set colors=? Where uuid=?")) {
+                ps.setInt(1, colors);
+                ps.setString(2, uuid.toString());
+                ps.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -190,7 +199,7 @@ public class SQLGetter {
 
     public void addColors(UUID uuid, int colors) {
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET colors=? WHERE uuid=?");
+            PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Update " + tableName + " Set colors=? Where uuid=?");
             ps.setInt(1, getColors(uuid) + colors);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -201,7 +210,7 @@ public class SQLGetter {
 
     public boolean delColors(UUID uuid, int colors) {
         try {
-            PreparedStatement ps = Main.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET colors=? WHERE uuid=?");
+            PreparedStatement ps = plugin.getSQL().getConnection().prepareStatement("Update " + tableName + " Set colors=? Where uuid=?");
             if (getColors(uuid) == 0) {
                 return false;
             }

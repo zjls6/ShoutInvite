@@ -1,0 +1,99 @@
+package me.zjls.shoutinvite.commands;
+
+import me.zjls.shoutinvite.Main;
+import me.zjls.shoutinvite.utils.Color;
+import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.config.ServerInfo;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.plugin.Command;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+public class Shout extends Command {
+
+    Map<UUID, Long> cooldowns = new HashMap<>();
+
+    private Main plugin;
+
+    public Shout(Main plugin) {
+        super("hh", "");
+        this.plugin = plugin;
+    }
+
+    @Override
+    public void execute(CommandSender sender, String[] args) {
+        if (!(sender instanceof ProxiedPlayer)) {
+            sender.sendMessage(new TextComponent(Color.s(plugin.getConfig().getString("message.run-in-console"))));
+            return;
+        }
+        ProxiedPlayer p = (ProxiedPlayer) sender;
+        if (p.getServer().getInfo().getName().equalsIgnoreCase("登录服")) {
+            return;
+        }
+
+        if (args.length == 0) {
+            p.sendMessage(new TextComponent(Color.s("&c用法： /hh <消息>")));
+            return;
+        }
+        if (cooldowns.containsKey(p.getUniqueId())) {
+            //玩家在HashMap中
+            Long time = cooldowns.get(p.getUniqueId());
+            if (time > System.currentTimeMillis()) {
+                //他们还在冷却当中（还有剩余时间）
+                long timeLeft = (time - System.currentTimeMillis()) / 1000;
+                p.sendMessage(new TextComponent(Color.s(plugin.getConfig().getString("message.in-cooldown")
+                        .replace("%timeleft%", String.valueOf(timeLeft)))));
+                return;
+            }
+        }
+
+        ServerInfo serverInfo = p.getServer().getInfo();
+        String serverName = serverInfo.getName();
+        String playerName = p.getName();
+
+        StringBuilder sb = new StringBuilder();
+        for (String arg : args) {
+            sb.append(" ").append(arg);
+        }
+        String msg = sb.toString();
+
+
+        Collection<ProxiedPlayer> players = plugin.getProxy().getPlayers();
+        if (msg.contains("&") && msg.length() != 1) {
+            if (plugin.getData().delColors(p.getUniqueId(), 1)) {
+                msg = Color.s(msg);
+            } else {
+                p.sendMessage(new TextComponent(Color.s("&c您的彩色喇叭不足！")));
+                return;
+            }
+        }
+        TextComponent shoutMessage = new TextComponent(Color.s(plugin.getConfig().getString("message.shout-format")
+                .replace("%server%", serverName)
+                .replace("%players%", String.valueOf(serverInfo.getPlayers().size()))
+                .replace("%player%", playerName)
+                .replace("%message%", msg)));
+        TextComponent inviteMessage = new TextComponent(plugin.getConfig().getString("message.invite-format").replace("&", "§"));
+        inviteMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/itp " + serverName));
+        if (args[0].contains("来")) {
+            if (plugin.getData().delInvites(p.getUniqueId(), 1)) {
+                shoutMessage.addExtra(inviteMessage);
+            } else {
+                p.sendMessage(new TextComponent(Color.s("&c您的邀请喇叭不足！")));
+            }
+        }
+        if (plugin.getData().delShouts(p.getUniqueId(), 1)) {
+            players.forEach(target -> target.sendMessage(shoutMessage));
+            //添加冷却时间
+            int coolDownTime = plugin.getConfig().getInt("cooldown.time") * 1000;
+            cooldowns.put(p.getUniqueId(), System.currentTimeMillis() + coolDownTime);
+        } else {
+            p.sendMessage(new TextComponent(Color.s("&c您的喇叭不足！")));
+        }
+
+    }
+}

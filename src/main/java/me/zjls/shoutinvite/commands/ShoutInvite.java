@@ -1,4 +1,4 @@
-package me.zjls.shoutinvite.Commands;
+package me.zjls.shoutinvite.commands;
 
 import me.zjls.shoutinvite.Main;
 import net.md_5.bungee.api.CommandSender;
@@ -12,9 +12,11 @@ import java.io.IOException;
 
 public class ShoutInvite extends Command {
 
+    private Main plugin;
 
-    public ShoutInvite() {
+    public ShoutInvite(Main plugin) {
         super("shoutinvite", "", "shouti");
+        this.plugin = plugin;
     }
 
     @Override
@@ -22,11 +24,11 @@ public class ShoutInvite extends Command {
         if (sender.hasPermission("shoutinvite.admin")) {
             if (args[0].equalsIgnoreCase("reload")) {
                 try {
-                    Main.config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(Main.configFile);
+                    plugin.setConfig(ConfigurationProvider.getProvider(YamlConfiguration.class).load(plugin.getConfigFile()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Main.instance.getLogger().info("§a插件重载成功！");
+                plugin.getLogger().info("§a插件重载成功！");
             }
 
             if (args[0].equalsIgnoreCase("help")) {
@@ -34,41 +36,41 @@ public class ShoutInvite extends Command {
             }
             if (args[0].equalsIgnoreCase("set")) {
                 if (args[1].equalsIgnoreCase("shouts")) {
-                    ProxiedPlayer p = Main.instance.getProxy().getPlayer(args[2]);
-                    Main.data.setShouts(p.getUniqueId(), Integer.parseInt(args[3]));
+                    ProxiedPlayer p = plugin.getProxy().getPlayer(args[2]);
+                    plugin.getData().setShouts(p.getUniqueId(), Integer.parseInt(args[3]));
 
                 } else if (args[1].equalsIgnoreCase("invites")) {
-                    ProxiedPlayer p = Main.instance.getProxy().getPlayer(args[2]);
-                    Main.data.setInvites(p.getUniqueId(), Integer.parseInt(args[3]));
+                    ProxiedPlayer p = plugin.getProxy().getPlayer(args[2]);
+                    plugin.getData().setInvites(p.getUniqueId(), Integer.parseInt(args[3]));
                 } else {
                     sender.sendMessage(new TextComponent("§6/shoutinvite set <shouts/invites> <player> <number>"));
                 }
             }
             if (args[0].equalsIgnoreCase("add")) {
                 if (args[1].equalsIgnoreCase("shouts")) {
-                    ProxiedPlayer p = Main.instance.getProxy().getPlayer(args[2]);
-                    Main.data.addShouts(p.getUniqueId(), Integer.parseInt(args[3]));
+                    ProxiedPlayer p = plugin.getProxy().getPlayer(args[2]);
+                    plugin.getData().addShouts(p.getUniqueId(), Integer.parseInt(args[3]));
 
                 } else if (args[1].equalsIgnoreCase("invites")) {
-                    ProxiedPlayer p = Main.instance.getProxy().getPlayer(args[2]);
-                    Main.data.addInvites(p.getUniqueId(), Integer.parseInt(args[3]));
+                    ProxiedPlayer p = plugin.getProxy().getPlayer(args[2]);
+                    plugin.getData().addInvites(p.getUniqueId(), Integer.parseInt(args[3]));
                 } else if (args[1].equalsIgnoreCase("colors")) {
-                    ProxiedPlayer p = Main.instance.getProxy().getPlayer(args[2]);
-                    Main.data.addColors(p.getUniqueId(), Integer.parseInt(args[3]));
+                    ProxiedPlayer p = plugin.getProxy().getPlayer(args[2]);
+                    plugin.getData().addColors(p.getUniqueId(), Integer.parseInt(args[3]));
                 } else {
                     sender.sendMessage(new TextComponent("§6/shoutinvite add <shouts/invites> <player> <number>"));
                 }
             }
             if (args[0].equalsIgnoreCase("set")) {
                 if (args[1].equalsIgnoreCase("shouts")) {
-                    ProxiedPlayer p = Main.instance.getProxy().getPlayer(args[2]);
-                    Main.data.setShouts(p.getUniqueId(), Integer.parseInt(args[3]));
+                    ProxiedPlayer p = plugin.getProxy().getPlayer(args[2]);
+                    plugin.getData().setShouts(p.getUniqueId(), Integer.parseInt(args[3]));
                 } else if (args[1].equalsIgnoreCase("invites")) {
-                    ProxiedPlayer p = Main.instance.getProxy().getPlayer(args[2]);
-                    Main.data.setInvites(p.getUniqueId(), Integer.parseInt(args[3]));
+                    ProxiedPlayer p = plugin.getProxy().getPlayer(args[2]);
+                    plugin.getData().setInvites(p.getUniqueId(), Integer.parseInt(args[3]));
                 } else if (args[1].equalsIgnoreCase("colors")) {
-                    ProxiedPlayer p = Main.instance.getProxy().getPlayer(args[2]);
-                    Main.data.setColors(p.getUniqueId(), Integer.parseInt(args[3]));
+                    ProxiedPlayer p = plugin.getProxy().getPlayer(args[2]);
+                    plugin.getData().setColors(p.getUniqueId(), Integer.parseInt(args[3]));
                 } else {
                     sender.sendMessage(new TextComponent("§6/shoutinvite set <shouts/invites> <player> <number>"));
                 }
@@ -77,8 +79,8 @@ public class ShoutInvite extends Command {
         if (sender instanceof ProxiedPlayer) {
             if (args[0].equalsIgnoreCase("get")) {
                 ProxiedPlayer p = (ProxiedPlayer) sender;
-                sender.sendMessage(new TextComponent("§a您还有§6 " + Main.data.getShouts(p.getUniqueId()) + " §a个喇叭"));
-                sender.sendMessage(new TextComponent("§a您还有§6 " + Main.data.getInvites(p.getUniqueId()) + " §a个邀请喇叭"));
+                sender.sendMessage(new TextComponent("§a您还有§6 " + plugin.getData().getShouts(p.getUniqueId()) + " §a个喇叭"));
+                sender.sendMessage(new TextComponent("§a您还有§6 " + plugin.getData().getInvites(p.getUniqueId()) + " §a个邀请喇叭"));
             }
         }
 

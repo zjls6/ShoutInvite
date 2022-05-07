@@ -1,8 +1,19 @@
 message:
   shout-format: "&6[喊话]&e[%server%(%players%)]&b[%player%]&8:&f%message%"
   invite-format: "&e[点击传送]"
-  run-in-console: "§c该命令不能在控制台执行！"
-  run-in-login: "§c该命令不能在登录服执行！"
+  run-in-console: "&c该命令不能在控制台执行！"
+  run-in-login: "&c该命令不能在登录服执行！"
+  in-cooldown: "&c你还需等待 &b&l %timeleft% &c秒才能使用此指令！"
+
+loginServer: "登录服"
 
 cooldown:
   time: 30
+
+mysql:
+  host: 'localhost'
+  port: '3306'
+  database: 'minecraft'
+  username: ''
+  password: ''
+  useSSL: false

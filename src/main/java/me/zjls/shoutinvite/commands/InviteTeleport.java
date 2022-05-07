@@ -1,5 +1,8 @@
-package me.zjls.shoutinvite.Commands;
+package me.zjls.shoutinvite.commands;
 
+import me.zjls.shoutinvite.Main;
+import me.zjls.shoutinvite.callbacks.ConnectCallback;
+import me.zjls.shoutinvite.utils.Color;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -7,10 +10,13 @@ import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-public class STP extends Command {
+public class InviteTeleport extends Command {
 
-    public STP() {
-        super("stp");
+    private Main plugin;
+
+    public InviteTeleport(Main plugin) {
+        super("itp");
+        this.plugin = plugin;
     }
 
     @Override
@@ -25,9 +31,9 @@ public class STP extends Command {
             }
             ServerInfo target = ProxyServer.getInstance().getServerInfo(args[0]);
             try {
-                p.connect(target);
+                p.connect(target, new ConnectCallback());
             } catch (NullPointerException e) {
-                p.sendMessage(new TextComponent("§c找不到这个服务器！"));
+                p.sendMessage(new TextComponent(Color.s("&c找不到这个服务器！")));
             }
 
         }
