@@ -28,8 +28,8 @@ public enum Messages {
         this.configPath = "messages." + configPath;
     }
 
-    public String getMessage() {
-        return message;
+    public static String format(String msg) {
+        return ChatColor.translateAlternateColorCodes('&', msg);
     }
 
     public void setMessage(String message) {
@@ -44,8 +44,8 @@ public enum Messages {
         return configPath;
     }
 
-    public static String format(String msg) {
-        return ChatColor.translateAlternateColorCodes('&', msg).replace("%prefix%", Prefix.getMessage());
+    public String getMessage() {
+        return message.replace("%prefix%", Prefix.getMessage());
     }
 
 }
