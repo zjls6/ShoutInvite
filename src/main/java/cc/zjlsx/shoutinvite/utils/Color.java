@@ -1,4 +1,4 @@
-package me.zjls.shoutinvite.utils;
+package cc.zjlsx.shoutinvite.utils;
 
 import net.md_5.bungee.api.ChatColor;
 

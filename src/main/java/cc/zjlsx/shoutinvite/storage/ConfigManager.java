@@ -1,9 +1,9 @@
-package me.zjls.shoutinvite.storage;
+package cc.zjlsx.shoutinvite.storage;
 
+import cc.zjlsx.shoutinvite.Main;
+import cc.zjlsx.shoutinvite.enums.Messages;
+import cc.zjlsx.shoutinvite.utils.Color;
 import lombok.Data;
-import me.zjls.shoutinvite.Main;
-import me.zjls.shoutinvite.enums.Messages;
-import me.zjls.shoutinvite.utils.Color;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;

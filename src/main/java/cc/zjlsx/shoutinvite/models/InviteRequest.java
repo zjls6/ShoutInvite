@@ -1,4 +1,4 @@
-package me.zjls.shoutinvite.models;
+package cc.zjlsx.shoutinvite.models;
 
 import lombok.Data;
 import net.md_5.bungee.api.config.ServerInfo;

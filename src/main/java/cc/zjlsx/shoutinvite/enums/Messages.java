@@ -1,4 +1,4 @@
-package me.zjls.shoutinvite.enums;
+package cc.zjlsx.shoutinvite.enums;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.config.ServerInfo;

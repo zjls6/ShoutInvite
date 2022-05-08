@@ -1,9 +1,9 @@
-package me.zjls.shoutinvite.commands;
+package cc.zjlsx.shoutinvite.commands;
 
-import me.zjls.shoutinvite.Main;
-import me.zjls.shoutinvite.enums.Messages;
-import me.zjls.shoutinvite.models.InviteRequest;
-import me.zjls.shoutinvite.storage.ConfigManager;
+import cc.zjlsx.shoutinvite.Main;
+import cc.zjlsx.shoutinvite.enums.Messages;
+import cc.zjlsx.shoutinvite.models.InviteRequest;
+import cc.zjlsx.shoutinvite.storage.ConfigManager;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;

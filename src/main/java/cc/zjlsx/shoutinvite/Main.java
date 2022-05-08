@@ -1,14 +1,14 @@
-package me.zjls.shoutinvite;
+package cc.zjlsx.shoutinvite;
 
+import cc.zjlsx.shoutinvite.commands.InviteTeleport;
+import cc.zjlsx.shoutinvite.commands.Shout;
+import cc.zjlsx.shoutinvite.enums.Messages;
+import cc.zjlsx.shoutinvite.listeners.PlayerJoin;
+import cc.zjlsx.shoutinvite.models.InviteRequest;
+import cc.zjlsx.shoutinvite.storage.ConfigManager;
+import cc.zjlsx.shoutinvite.storage.MySQL;
+import cc.zjlsx.shoutinvite.storage.SQLGetter;
 import lombok.Getter;
-import me.zjls.shoutinvite.commands.InviteTeleport;
-import me.zjls.shoutinvite.commands.Shout;
-import me.zjls.shoutinvite.enums.Messages;
-import me.zjls.shoutinvite.listeners.PlayerJoin;
-import me.zjls.shoutinvite.models.InviteRequest;
-import me.zjls.shoutinvite.storage.ConfigManager;
-import me.zjls.shoutinvite.storage.MySQL;
-import me.zjls.shoutinvite.storage.SQLGetter;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.util.List;

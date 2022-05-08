@@ -1,4 +1,4 @@
-package me.zjls.shoutinvite.callbacks;
+package cc.zjlsx.shoutinvite.callbacks;
 
 import net.md_5.bungee.api.Callback;
 

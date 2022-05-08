@@ -1,6 +1,6 @@
-package me.zjls.shoutinvite.storage;
+package cc.zjlsx.shoutinvite.storage;
 
-import me.zjls.shoutinvite.Main;
+import cc.zjlsx.shoutinvite.Main;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.sql.PreparedStatement;

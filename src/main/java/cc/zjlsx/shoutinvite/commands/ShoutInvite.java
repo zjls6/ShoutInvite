@@ -1,6 +1,6 @@
-package me.zjls.shoutinvite.commands;
+package cc.zjlsx.shoutinvite.commands;
 
-import me.zjls.shoutinvite.Main;
+import cc.zjlsx.shoutinvite.Main;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;

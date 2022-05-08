@@ -1,4 +1,4 @@
-package me.zjls.shoutinvite.storage;
+package cc.zjlsx.shoutinvite.storage;
 
 public class ServerManager {
     private ConfigManager configManager;

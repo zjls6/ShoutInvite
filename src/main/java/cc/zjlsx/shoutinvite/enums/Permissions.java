@@ -1,4 +1,4 @@
-package me.zjls.shoutinvite.enums;
+package cc.zjlsx.shoutinvite.enums;
 
 public enum Permissions {
 

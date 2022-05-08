@@ -1,8 +1,8 @@
-package me.zjls.shoutinvite.storage;
+package cc.zjlsx.shoutinvite.storage;
 
+import cc.zjlsx.shoutinvite.Main;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import me.zjls.shoutinvite.Main;
 import net.md_5.bungee.config.Configuration;
 
 import java.sql.Connection;

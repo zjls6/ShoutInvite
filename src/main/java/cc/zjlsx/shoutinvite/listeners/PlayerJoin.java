@@ -1,6 +1,6 @@
-package me.zjls.shoutinvite.listeners;
+package cc.zjlsx.shoutinvite.listeners;
 
-import me.zjls.shoutinvite.Main;
+import cc.zjlsx.shoutinvite.Main;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
