@@ -19,6 +19,8 @@ public class ConfigManager {
     public File configFile;
     public Configuration config;
     public int coolDownTime;
+    public int expiryTime;
+
     private Main plugin;
 
     public ConfigManager(Main plugin) {
@@ -53,7 +55,8 @@ public class ConfigManager {
 
         reloadMessages();
 
-        coolDownTime = config.getInt("cooldown.time");
+        coolDownTime = config.getInt("times.cooldown");
+        expiryTime = config.getInt("times.expiry");
     }
 
     public void reloadMessages() {

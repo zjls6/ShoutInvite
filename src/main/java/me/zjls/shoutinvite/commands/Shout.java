@@ -2,6 +2,7 @@ package me.zjls.shoutinvite.commands;
 
 import me.zjls.shoutinvite.Main;
 import me.zjls.shoutinvite.enums.Messages;
+import me.zjls.shoutinvite.models.InviteRequest;
 import me.zjls.shoutinvite.storage.ConfigManager;
 import me.zjls.shoutinvite.utils.Color;
 import net.md_5.bungee.api.CommandSender;
@@ -80,6 +81,8 @@ public class Shout extends Command {
                 .replace("%players%", String.valueOf(serverInfo.getPlayers().size()))
                 .replace("%player%", playerName)
                 .replace("%message%", msg));
+
+        plugin.getInviteRequests().add(new InviteRequest(p));
 //        TextComponent inviteMessage = new TextComponent(plugin.getConfig().getString("message.invite-format").replace("&", "§"));
 //        inviteMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/itp " + serverName));
         if (args[0].contains("来")) {

@@ -1,6 +1,7 @@
 package me.zjls.shoutinvite.commands;
 
 import me.zjls.shoutinvite.Main;
+import me.zjls.shoutinvite.storage.ConfigManager;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -9,9 +10,12 @@ public class InviteTeleport extends Command {
 
     private Main plugin;
 
+    private ConfigManager configManager;
+
     public InviteTeleport(Main plugin) {
         super("itp");
         this.plugin = plugin;
+        configManager = plugin.getConfigManager();
     }
 
     @Override
@@ -36,7 +40,6 @@ public class InviteTeleport extends Command {
         if (!(sender instanceof ProxiedPlayer)) {
             return;
         }
-
 
     }
 }

@@ -18,8 +18,9 @@ servers:
   lobby: "&a大厅"
   bedwars: "&e起床战争"
 
-cooldown:
-  time: 30
+times:
+  cooldown: 30
+  expiry: 100
 
 mysql:
   host: 'localhost'

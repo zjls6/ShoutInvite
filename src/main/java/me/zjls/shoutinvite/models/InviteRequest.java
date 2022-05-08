@@ -15,4 +15,12 @@ public class InviteRequest {
 
     private Long inviteTime;
 
+    public InviteRequest(ProxiedPlayer inviter) {
+        this.inviter = inviter;
+        serverInfo = inviter.getServer().getInfo();
+
+        token = UUID.randomUUID();
+        inviteTime = System.currentTimeMillis();
+    }
+
 }
