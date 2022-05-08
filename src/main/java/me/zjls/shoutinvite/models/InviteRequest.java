@@ -1,10 +1,12 @@
 package me.zjls.shoutinvite.models;
 
+import lombok.Data;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.UUID;
 
+@Data
 public class InviteRequest {
 
     private ProxiedPlayer inviter;

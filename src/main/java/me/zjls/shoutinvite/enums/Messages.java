@@ -16,7 +16,7 @@ public enum Messages {
     Reload_Plugin("%prefix% &a插件配置重载成功");
 
     private String message;
-    private String configPath;
+    private final String configPath;
 
     Messages(String message) {
         this.message = format(message);
@@ -27,8 +27,6 @@ public enum Messages {
         this.message = format(message);
         this.configPath = "messages." + configPath;
     }
-
-
 
     public String getMessage() {
         return message;

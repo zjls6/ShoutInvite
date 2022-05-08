@@ -6,6 +6,7 @@ import me.zjls.shoutinvite.models.InviteRequest;
 import me.zjls.shoutinvite.storage.ConfigManager;
 import me.zjls.shoutinvite.utils.Color;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -72,38 +73,42 @@ public class Shout extends Command {
 
 
         Collection<ProxiedPlayer> players = plugin.getProxy().getPlayers();
-        if (msg.contains("&") && msg.length() != 1) {
-            if (plugin.getData().delColors(p.getUniqueId(), 1)) {
-                msg = Color.s(msg);
-            } else {
-                p.sendMessage(new TextComponent(Color.s("&c您的彩色喇叭不足！")));
-                return;
-            }
-        }
+
+//        if (msg.contains("&") && msg.length() != 1) {
+//            if (plugin.getData().delColors(p.getUniqueId(), 1)) {
+//                msg = Color.s(msg);
+//            } else {
+//                p.sendMessage(new TextComponent(Color.s("&c您的彩色喇叭不足！")));
+//                return;
+//            }
+//        }
         TextComponent shoutMessage = new TextComponent(Messages.Invite_Message_Format.getMessage()
                 .replace("%server%", serverName)
                 .replace("%players%", String.valueOf(serverInfo.getPlayers().size()))
                 .replace("%player%", playerName)
                 .replace("%message%", msg));
 
-        plugin.getInviteRequests().add(new InviteRequest(p));
+        InviteRequest inviteRequest = new InviteRequest(p);
+        plugin.getInviteRequests().add(inviteRequest);
+
+        players.forEach(target -> target.sendMessage(shoutMessage));
 //        TextComponent inviteMessage = new TextComponent(plugin.getConfig().getString("message.invite-format").replace("&", "§"));
-//        inviteMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/itp " + serverName));
-        if (args[0].contains("来")) {
-            if (plugin.getData().delInvites(p.getUniqueId(), 1)) {
+        shoutMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/itp " + inviteRequest.getToken()));
+//        if (args[0].contains("来")) {
+//            if (plugin.getData().delInvites(p.getUniqueId(), 1)) {
 //                shoutMessage.addExtra(inviteMessage);
-            } else {
-                p.sendMessage(new TextComponent(Color.s("&c您的邀请喇叭不足！")));
-            }
-        }
-        if (plugin.getData().delShouts(p.getUniqueId(), 1)) {
-            players.forEach(target -> target.sendMessage(shoutMessage));
-            //添加冷却时间
-            int coolDownTime = configManager.getCoolDownTime() * 1000;
-            cooldowns.put(p.getUniqueId(), System.currentTimeMillis() + coolDownTime);
-        } else {
-            p.sendMessage(new TextComponent(Color.s("&c您的喇叭不足！")));
-        }
+//            } else {
+//                p.sendMessage(new TextComponent(Color.s("&c您的邀请喇叭不足！")));
+//            }
+//        }
+//        if (plugin.getData().delShouts(p.getUniqueId(), 1)) {
+//            players.forEach(target -> target.sendMessage(shoutMessage));
+        //添加冷却时间
+        int coolDownTime = configManager.getCoolDownTime() * 1000;
+        cooldowns.put(p.getUniqueId(), System.currentTimeMillis() + coolDownTime);
+//        } else {
+//            p.sendMessage(new TextComponent(Color.s("&c您的喇叭不足！")));
+//        }
 
     }
 }

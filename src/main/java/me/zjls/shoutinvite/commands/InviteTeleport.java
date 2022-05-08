@@ -2,11 +2,14 @@ package me.zjls.shoutinvite.commands;
 
 import me.zjls.shoutinvite.Main;
 import me.zjls.shoutinvite.enums.Messages;
+import me.zjls.shoutinvite.models.InviteRequest;
 import me.zjls.shoutinvite.storage.ConfigManager;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
+
+import java.util.List;
 
 public class InviteTeleport extends Command {
 
@@ -52,6 +55,21 @@ public class InviteTeleport extends Command {
             }
         }
 
+        //itp <token> 该命令不允许玩家手动执行，无需帮助提示
+        if (args.length != 1) {
+            return;
+        }
+
+        String token = args[0];
+
+        List<InviteRequest> inviteRequests = plugin.getInviteRequests();
+        for (InviteRequest inviteRequest : inviteRequests) {
+            if (inviteRequest.getToken().toString().equals(token)) {
+                player.connect(inviteRequest.getServerInfo());
+
+                inviteRequests.remove(inviteRequest);
+            }
+        }
 
     }
 }
