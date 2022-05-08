@@ -37,8 +37,12 @@ public class Shout extends Command {
             return;
         }
         ProxiedPlayer p = (ProxiedPlayer) sender;
-        if (p.getServer().getInfo().getName().equalsIgnoreCase("登录服")) {
-            return;
+        //检查是否在不允许传送的服务器中
+        for (String blockedServer : configManager.getBlockedServers()) {
+            if (p.getServer().getInfo().getName().equals(blockedServer)) {
+                p.sendMessage(new TextComponent(Messages.In_Blocked_Server.getMessage()));
+                return;
+            }
         }
 
         if (args.length == 0) {
@@ -51,7 +55,7 @@ public class Shout extends Command {
             if (time > System.currentTimeMillis()) {
                 //他们还在冷却当中（还有剩余时间）
                 long timeLeft = (time - System.currentTimeMillis()) / 1000;
-                p.sendMessage(new TextComponent(Messages.InCoolDown.getMessage().replace("%timeleft%", String.valueOf(timeLeft))));
+                p.sendMessage(new TextComponent(Messages.In_CoolDown.getMessage().replace("%timeleft%", String.valueOf(timeLeft))));
                 return;
             }
         }

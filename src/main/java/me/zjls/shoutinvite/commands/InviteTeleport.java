@@ -1,8 +1,10 @@
 package me.zjls.shoutinvite.commands;
 
 import me.zjls.shoutinvite.Main;
+import me.zjls.shoutinvite.enums.Messages;
 import me.zjls.shoutinvite.storage.ConfigManager;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
@@ -40,6 +42,16 @@ public class InviteTeleport extends Command {
         if (!(sender instanceof ProxiedPlayer)) {
             return;
         }
+        ProxiedPlayer player = (ProxiedPlayer) sender;
+
+        //检查是否在不允许传送的服务器中
+        for (String blockedServer : configManager.getBlockedServers()) {
+            if (player.getServer().getInfo().getName().equals(blockedServer)) {
+                player.sendMessage(new TextComponent(Messages.In_Blocked_Server.getMessage()));
+                return;
+            }
+        }
+
 
     }
 }

@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.List;
 
 @Data
 public class ConfigManager {
@@ -20,6 +21,8 @@ public class ConfigManager {
     public Configuration config;
     public int coolDownTime;
     public int expiryTime;
+
+    public List<String> blockedServers;
 
     private Main plugin;
 
@@ -57,6 +60,8 @@ public class ConfigManager {
 
         coolDownTime = config.getInt("times.cooldown");
         expiryTime = config.getInt("times.expiry");
+
+        blockedServers = config.getStringList("blockedServers");
     }
 
     public void reloadMessages() {

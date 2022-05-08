@@ -5,10 +5,10 @@ messages:
   shout-format: "&6[喊话]&e[%server%(%players%)]&b[%player%]&8:&f%message%"
   invite-format: "&e[点击传送]"
   format: "&b&l✈ &7 %player% &b&l邀请你加入 &e%server% &b&l房间！并说：%message%\n&6&l点击此信息 &b&l加入！"
-  run-in-console: "&c该命令不能在控制台执行！"
-  run-in-login: "&c该命令不能在登录服执行！"
-  in-cooldown: "&c你还需等待 &b&l %timeleft% &c秒才能使用此指令！"
-  reload-plugin: "&a插件配置重载成功"
+  run-in-console: "%prefix% &c该命令不能在控制台执行！"
+  in-cooldown: "%prefix% &c你还需等待 &b&l %timeleft% &c秒才能使用此指令！"
+  in-blocked-server: "%prefix% &c你不能在该服务器执行此命令！"
+  reload-plugin: "%prefix% &a插件配置重载成功"
 
 blockedServers:
   - "登录服"
