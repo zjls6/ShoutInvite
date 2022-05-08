@@ -1,9 +1,10 @@
 package me.zjls.shoutinvite.commands;
 
 import me.zjls.shoutinvite.Main;
+import me.zjls.shoutinvite.enums.Messages;
+import me.zjls.shoutinvite.storage.ConfigManager;
 import me.zjls.shoutinvite.utils.Color;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -20,15 +21,18 @@ public class Shout extends Command {
 
     private Main plugin;
 
+    private ConfigManager configManager;
+
     public Shout(Main plugin) {
         super("hh", "");
         this.plugin = plugin;
+        configManager = plugin.getConfigManager();
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (!(sender instanceof ProxiedPlayer)) {
-            sender.sendMessage(new TextComponent(Color.s(plugin.getConfig().getString("message.run-in-console"))));
+            sender.sendMessage(new TextComponent(Messages.Run_In_Console.getMessage()));
             return;
         }
         ProxiedPlayer p = (ProxiedPlayer) sender;
@@ -46,8 +50,7 @@ public class Shout extends Command {
             if (time > System.currentTimeMillis()) {
                 //他们还在冷却当中（还有剩余时间）
                 long timeLeft = (time - System.currentTimeMillis()) / 1000;
-                p.sendMessage(new TextComponent(Color.s(plugin.getConfig().getString("message.in-cooldown")
-                        .replace("%timeleft%", String.valueOf(timeLeft)))));
+                p.sendMessage(new TextComponent(Messages.InCoolDown.getMessage().replace("%timeleft%", String.valueOf(timeLeft))));
                 return;
             }
         }
@@ -72,16 +75,16 @@ public class Shout extends Command {
                 return;
             }
         }
-        TextComponent shoutMessage = new TextComponent(Color.s(plugin.getConfig().getString("message.shout-format")
+        TextComponent shoutMessage = new TextComponent(Messages.Invite_Message_Format.getMessage()
                 .replace("%server%", serverName)
                 .replace("%players%", String.valueOf(serverInfo.getPlayers().size()))
                 .replace("%player%", playerName)
-                .replace("%message%", msg)));
-        TextComponent inviteMessage = new TextComponent(plugin.getConfig().getString("message.invite-format").replace("&", "§"));
-        inviteMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/itp " + serverName));
+                .replace("%message%", msg));
+//        TextComponent inviteMessage = new TextComponent(plugin.getConfig().getString("message.invite-format").replace("&", "§"));
+//        inviteMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/itp " + serverName));
         if (args[0].contains("来")) {
             if (plugin.getData().delInvites(p.getUniqueId(), 1)) {
-                shoutMessage.addExtra(inviteMessage);
+//                shoutMessage.addExtra(inviteMessage);
             } else {
                 p.sendMessage(new TextComponent(Color.s("&c您的邀请喇叭不足！")));
             }
@@ -89,7 +92,7 @@ public class Shout extends Command {
         if (plugin.getData().delShouts(p.getUniqueId(), 1)) {
             players.forEach(target -> target.sendMessage(shoutMessage));
             //添加冷却时间
-            int coolDownTime = plugin.getConfig().getInt("cooldown.time") * 1000;
+            int coolDownTime = configManager.getCoolDownTime() * 1000;
             cooldowns.put(p.getUniqueId(), System.currentTimeMillis() + coolDownTime);
         } else {
             p.sendMessage(new TextComponent(Color.s("&c您的喇叭不足！")));

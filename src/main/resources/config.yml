@@ -1,11 +1,22 @@
-message:
+messages:
+  prefix: "&7[&6喊话邀请&7] "
+  enable: "&a插件已开启"
+  disable: "&c插件已关闭"
   shout-format: "&6[喊话]&e[%server%(%players%)]&b[%player%]&8:&f%message%"
   invite-format: "&e[点击传送]"
+  format: "&b&l✈ &7 %player% &b&l邀请你加入 &e%server% &b&l房间！并说：%message%\n&6&l点击此信息 &b&l加入！"
   run-in-console: "&c该命令不能在控制台执行！"
   run-in-login: "&c该命令不能在登录服执行！"
   in-cooldown: "&c你还需等待 &b&l %timeleft% &c秒才能使用此指令！"
+  reload-plugin: "&a插件配置重载成功"
 
-loginServer: "登录服"
+blockedServers:
+  - "登录服"
+  - "login"
+
+servers:
+  lobby: "&a大厅"
+  bedwars: "&e起床战争"
 
 cooldown:
   time: 30

@@ -3,6 +3,7 @@ package me.zjls.shoutinvite.storage;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import me.zjls.shoutinvite.Main;
+import net.md_5.bungee.config.Configuration;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -10,6 +11,8 @@ import java.sql.SQLException;
 public class MySQL {
 
     private Main plugin;
+
+    private Configuration config;
 
     private String host;
     private String port;
@@ -22,12 +25,13 @@ public class MySQL {
 
     public MySQL(Main plugin) {
         this.plugin = plugin;
-        host = plugin.getConfig().getString("mysql.host");
-        port = plugin.getConfig().getString("mysql.port");
-        database = plugin.getConfig().getString("mysql.database");
-        username = plugin.getConfig().getString("mysql.username");
-        password = plugin.getConfig().getString("mysql.password");
-        useSSL = plugin.getConfig().getBoolean("mysql.useSSL");
+        config = plugin.getConfigManager().getConfig();
+        host = config.getString("mysql.host");
+        port = config.getString("mysql.port");
+        database = config.getString("mysql.database");
+        username = config.getString("mysql.username");
+        password = config.getString("mysql.password");
+        useSSL = config.getBoolean("mysql.useSSL");
     }
 
     public boolean isConnected() {

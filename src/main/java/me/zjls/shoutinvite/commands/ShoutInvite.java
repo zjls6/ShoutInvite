@@ -24,10 +24,11 @@ public class ShoutInvite extends Command {
         if (sender.hasPermission("shoutinvite.admin")) {
             if (args[0].equalsIgnoreCase("reload")) {
                 try {
-                    plugin.setConfig(ConfigurationProvider.getProvider(YamlConfiguration.class).load(plugin.getConfigFile()));
+                    plugin.getConfigManager().setConfig(ConfigurationProvider.getProvider(YamlConfiguration.class).load(plugin.getConfigManager().getConfigFile()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                plugin.getConfigManager().reloadMessages();
                 plugin.getLogger().info("§a插件重载成功！");
             }
 

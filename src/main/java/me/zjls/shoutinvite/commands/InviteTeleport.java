@@ -1,12 +1,7 @@
 package me.zjls.shoutinvite.commands;
 
 import me.zjls.shoutinvite.Main;
-import me.zjls.shoutinvite.callbacks.ConnectCallback;
-import me.zjls.shoutinvite.utils.Color;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
@@ -21,21 +16,27 @@ public class InviteTeleport extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (sender instanceof ProxiedPlayer) {
-            ProxiedPlayer p = (ProxiedPlayer) sender;
-            if (p.getServer().getInfo().getName().equalsIgnoreCase("登录服")) {
-                return;
-            }
-            if (args.length == 0) {
-                return;
-            }
-            ServerInfo target = ProxyServer.getInstance().getServerInfo(args[0]);
-            try {
-                p.connect(target, new ConnectCallback());
-            } catch (NullPointerException e) {
-                p.sendMessage(new TextComponent(Color.s("&c找不到这个服务器！")));
-            }
+//        if (sender instanceof ProxiedPlayer) {
+//
+//            if (p.getServer().getInfo().getName().equalsIgnoreCase("登录服")) {
+//                return;
+//            }
+//            if (args.length == 0) {
+//                return;
+//            }
+//            ServerInfo target = ProxyServer.getInstance().getServerInfo(args[0]);
+//            try {
+//                p.connect(target, new ConnectCallback());
+//            } catch (NullPointerException e) {
+//                p.sendMessage(new TextComponent(Color.s("&c找不到这个服务器！")));
+//            }
+//
+//        }
 
+        if (!(sender instanceof ProxiedPlayer)) {
+            return;
         }
+
+
     }
 }
