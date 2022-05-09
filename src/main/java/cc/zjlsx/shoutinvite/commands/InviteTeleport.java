@@ -71,8 +71,6 @@ public class InviteTeleport extends Command {
                     return;
                 }
                 player.connect(inviteRequest.getServerInfo());
-
-                inviteRequests.remove(inviteRequest);
             }
         }
 
