@@ -70,7 +70,7 @@ public class ConfigManager {
         //加载自定义的服务器显示名
         Configuration serverSection = config.getSection("servers");
         for (String serverInfoName : serverSection.getKeys()) {
-            String serverNickName = serverSection.getString(serverInfoName);
+            String serverNickName = Color.s(serverSection.getString(serverInfoName));
             serverNameMap.put(serverInfoName, serverNickName);
         }
 
