@@ -91,9 +91,11 @@ public class Shout extends Command {
         InviteRequest inviteRequest = new InviteRequest(p);
         plugin.getInviteRequests().add(inviteRequest);
 
+        shoutMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/itp " + inviteRequest.getToken()));
+
         players.forEach(target -> target.sendMessage(shoutMessage));
 //        TextComponent inviteMessage = new TextComponent(plugin.getConfig().getString("message.invite-format").replace("&", "§"));
-        shoutMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/itp " + inviteRequest.getToken()));
+
 //        if (args[0].contains("来")) {
 //            if (plugin.getData().delInvites(p.getUniqueId(), 1)) {
 //                shoutMessage.addExtra(inviteMessage);
