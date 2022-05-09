@@ -21,6 +21,10 @@ public class ShoutInvite extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
+        if (args.length == 0) {
+            sender.sendMessage(new TextComponent("&e用法：&b/shoutinvite reload"));
+            return;
+        }
         if (sender.hasPermission("shoutinvite.admin")) {
             if (args[0].equalsIgnoreCase("reload")) {
                 try {
