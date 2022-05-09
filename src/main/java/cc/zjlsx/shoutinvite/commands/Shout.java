@@ -107,6 +107,14 @@ public class Shout extends Command {
 //            players.forEach(target -> target.sendMessage(shoutMessage));
         //添加冷却时间
         int coolDownTime = configManager.getCoolDownTime() * 1000;
+
+        for (String permission : p.getPermissions()) {
+            if (permission.startsWith("shoutinvite.cooldown.")) {
+                String[] split = permission.split(".");
+                coolDownTime = Integer.parseInt(split[2]) * 1000;
+            }
+        }
+
         cooldowns.put(p.getUniqueId(), System.currentTimeMillis() + coolDownTime);
 //        } else {
 //            p.sendMessage(new TextComponent(Color.s("&c您的喇叭不足！")));
