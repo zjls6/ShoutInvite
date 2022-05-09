@@ -11,6 +11,7 @@ import cc.zjlsx.shoutinvite.storage.SQLGetter;
 import lombok.Getter;
 import net.md_5.bungee.api.plugin.Plugin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -20,7 +21,7 @@ public class Main extends Plugin {
 
     public ConfigManager configManager;
 
-    public List<InviteRequest> inviteRequests;
+    public List<InviteRequest> inviteRequests = new ArrayList<>();
 
     @Override
     public void onEnable() {
