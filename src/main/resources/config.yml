@@ -4,6 +4,7 @@ messages:
   shout-format: "&6[喊话]&e[%server%(%players%)]&b[%player%]&8:&f%message%"
   invite-format: "&e[点击传送]"
   format: "&b&l✈ &7 %player% &b&l邀请你加入 &e%server% &b&l房间！并说：%message%\n&6&l点击此信息 &b&l加入！"
+  hover-format: "&a点击传送至服务器 &6%server%"
   run-in-console: "&c该命令不能在控制台执行！"
   in-cooldown: "&c你还需等待 &b&l %timeleft% &c秒才能使用此指令！"
   in-blocked-server: "&c你不能在该服务器执行此命令！"

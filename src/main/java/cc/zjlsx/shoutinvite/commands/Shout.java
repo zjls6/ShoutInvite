@@ -7,7 +7,9 @@ import cc.zjlsx.shoutinvite.storage.ConfigManager;
 import cc.zjlsx.shoutinvite.utils.Color;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -82,7 +84,7 @@ public class Shout extends Command {
 //                return;
 //            }
 //        }
-        TextComponent shoutMessage = new TextComponent(Messages.Invite_Message_Format.getMessage()
+        TextComponent inviteMessage = new TextComponent(Messages.Invite_Message_Format.getMessage()
                 .replace("%server%", configManager.getServerNameMap().getOrDefault(serverName, serverName))
                 .replace("%players%", String.valueOf(serverInfo.getPlayers().size()))
                 .replace("%player%", playerName)
@@ -91,9 +93,14 @@ public class Shout extends Command {
         InviteRequest inviteRequest = new InviteRequest(p);
         plugin.getInviteRequests().add(inviteRequest);
 
-        shoutMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/itp " + inviteRequest.getToken()));
+        inviteMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/itp " + inviteRequest.getToken()));
+        inviteMessage.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Messages.Invite_Hover_Format.getMessage()
+                .replace("%server%", configManager.getServerNameMap().getOrDefault(serverName, serverName))
+                .replace("%players%", String.valueOf(serverInfo.getPlayers().size()))
+                .replace("%player%", playerName)
+                .replace("%message%", msg))));
 
-        players.forEach(target -> target.sendMessage(shoutMessage));
+        players.forEach(target -> target.sendMessage(inviteMessage));
 //        TextComponent inviteMessage = new TextComponent(plugin.getConfig().getString("message.invite-format").replace("&", "§"));
 
 //        if (args[0].contains("来")) {
