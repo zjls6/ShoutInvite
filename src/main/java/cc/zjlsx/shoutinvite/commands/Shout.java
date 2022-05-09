@@ -83,7 +83,7 @@ public class Shout extends Command {
 //            }
 //        }
         TextComponent shoutMessage = new TextComponent(Messages.Invite_Message_Format.getMessage()
-                .replace("%server%", serverName)
+                .replace("%server%", configManager.getServerNameMap().getOrDefault(serverName, serverName))
                 .replace("%players%", String.valueOf(serverInfo.getPlayers().size()))
                 .replace("%player%", playerName)
                 .replace("%message%", msg));

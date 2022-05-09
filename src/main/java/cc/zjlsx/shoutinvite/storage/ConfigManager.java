@@ -12,7 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class ConfigManager {
@@ -23,6 +25,8 @@ public class ConfigManager {
     public int expiryTime;
 
     public List<String> blockedServers;
+
+    private Map<String, String> serverNameMap = new HashMap<>();
 
     private Main plugin;
 
@@ -62,6 +66,14 @@ public class ConfigManager {
         expiryTime = config.getInt("times.expiry");
 
         blockedServers = config.getStringList("blockedServers");
+
+        //加载自定义的服务器显示名
+        Configuration serverSection = config.getSection("servers");
+        for (String serverInfoName : serverSection.getKeys()) {
+            String serverNickName = serverSection.getString(serverInfoName);
+            serverNameMap.put(serverInfoName, serverNickName);
+        }
+
     }
 
     public void reloadMessages() {
