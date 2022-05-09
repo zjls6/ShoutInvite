@@ -11,10 +11,10 @@ public class PlayerJoin implements Listener {
 
     @EventHandler
     public void onJoin(ServerConnectedEvent e) {
-        if (plugin.getSQL().isConnected()) {
-            if (plugin.getData().createPlayer(e.getPlayer())) {
-                plugin.getLogger().info("§a已创建玩家 " + e.getPlayer().getName() + " 的表项");
-            }
-        }
+//        if (plugin.getSQL().isConnected()) {
+//            if (plugin.getData().createPlayer(e.getPlayer())) {
+//                plugin.getLogger().info("§a已创建玩家 " + e.getPlayer().getName() + " 的表项");
+//            }
+//        }
     }
 }
