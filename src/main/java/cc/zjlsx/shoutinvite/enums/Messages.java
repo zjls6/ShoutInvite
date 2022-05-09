@@ -11,6 +11,7 @@ public enum Messages {
     Run_In_Console("&c该命令不能在控制台执行"),
     In_CoolDown("&c你还需等待 &b&l %timeleft% &c秒才能使用此指令！"),
     In_Blocked_Server("&c你不能在该服务器执行此命令！"),
+    Invitation_Expired("&c该邀请已过期"),
     Invite_Message_Format("&b&l✈ &7 %player% &b&l邀请你加入 &e%server% &b&l房间！并说：%message%\n&6&l点击此信息 &b&l加入！", "format"),
     Reload_Plugin("&a插件配置重载成功");
 

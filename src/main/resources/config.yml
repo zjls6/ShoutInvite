@@ -7,6 +7,7 @@ messages:
   run-in-console: "&c该命令不能在控制台执行！"
   in-cooldown: "&c你还需等待 &b&l %timeleft% &c秒才能使用此指令！"
   in-blocked-server: "&c你不能在该服务器执行此命令！"
+  invitation-expired: "&c该邀请已过期"
   reload-plugin: "&a插件配置重载成功"
 
 blockedServers:

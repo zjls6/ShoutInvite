@@ -65,6 +65,11 @@ public class InviteTeleport extends Command {
         List<InviteRequest> inviteRequests = plugin.getInviteRequests();
         for (InviteRequest inviteRequest : inviteRequests) {
             if (inviteRequest.getToken().toString().equals(token)) {
+                //判断该邀请是否过期
+                if (System.currentTimeMillis() - inviteRequest.getInviteTime() > configManager.getExpiryTime()) {
+                    player.sendMessage(new TextComponent(Messages.Invitation_Expired.getMessage()));
+                    return;
+                }
                 player.connect(inviteRequest.getServerInfo());
 
                 inviteRequests.remove(inviteRequest);
