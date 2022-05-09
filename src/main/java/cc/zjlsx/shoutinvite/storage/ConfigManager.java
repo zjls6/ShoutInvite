@@ -59,27 +59,32 @@ public class ConfigManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-        reloadMessages();
-
+    public void load() {
+        //加载冷却时间
         coolDownTime = config.getInt("times.cooldown");
+        //加载过期时间
         expiryTime = config.getInt("times.expiry");
-
+        //加载不能使用邀请指令的服务器
         blockedServers = config.getStringList("blockedServers");
-
+        //加载消息
+        loadMessages();
         //加载自定义的服务器显示名
+        loadServerNames();
+    }
+
+    private void loadMessages() {
+        for (Messages message : Messages.values()) {
+            message.setMessage(config.getString(message.getConfigPath()));
+        }
+    }
+
+    private void loadServerNames() {
         Configuration serverSection = config.getSection("servers");
         for (String serverInfoName : serverSection.getKeys()) {
             String serverNickName = Color.s(serverSection.getString(serverInfoName));
             serverNameMap.put(serverInfoName, serverNickName);
-        }
-
-    }
-
-    public void reloadMessages() {
-        //加载消息
-        for (Messages message : Messages.values()) {
-            message.setMessage(config.getString(message.getConfigPath()));
         }
     }
 

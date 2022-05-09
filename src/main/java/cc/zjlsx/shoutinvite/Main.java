@@ -2,6 +2,7 @@ package cc.zjlsx.shoutinvite;
 
 import cc.zjlsx.shoutinvite.commands.InviteTeleport;
 import cc.zjlsx.shoutinvite.commands.Shout;
+import cc.zjlsx.shoutinvite.commands.ShoutInvite;
 import cc.zjlsx.shoutinvite.enums.Messages;
 import cc.zjlsx.shoutinvite.listeners.PlayerJoin;
 import cc.zjlsx.shoutinvite.models.InviteRequest;
@@ -48,7 +49,7 @@ public class Main extends Plugin {
 //        getProxy().getScheduler().schedule(this, new Task(this), 20, 20, TimeUnit.SECONDS);
 
         getProxy().getPluginManager().registerCommand(this, new InviteTeleport(this));
-//        getProxy().getPluginManager().registerCommand(this, new ShoutInvite(this));
+        getProxy().getPluginManager().registerCommand(this, new ShoutInvite(this));
         getProxy().getPluginManager().registerCommand(this, new Shout(this));
         getProxy().getPluginManager().registerListener(this, new PlayerJoin());
 
