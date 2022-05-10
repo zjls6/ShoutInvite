@@ -1,6 +1,7 @@
 package cc.zjlsx.shoutinvite.commands;
 
 import cc.zjlsx.shoutinvite.Main;
+import cc.zjlsx.shoutinvite.callbacks.ConnectCallback;
 import cc.zjlsx.shoutinvite.enums.Messages;
 import cc.zjlsx.shoutinvite.models.InviteRequest;
 import cc.zjlsx.shoutinvite.storage.ConfigManager;
@@ -70,7 +71,7 @@ public class InviteTeleport extends Command {
                     player.sendMessage(new TextComponent(Messages.Invitation_Expired.getMessage()));
                     return;
                 }
-                player.connect(inviteRequest.getServerInfo());
+                player.connect(inviteRequest.getServerInfo(), new ConnectCallback());
             }
         }
 

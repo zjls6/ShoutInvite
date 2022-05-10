@@ -73,7 +73,6 @@ public class Shout extends Command {
         }
         String msg = sb.toString();
 
-
         Collection<ProxiedPlayer> players = plugin.getProxy().getPlayers();
 
 //        if (msg.contains("&") && msg.length() != 1) {
@@ -117,7 +116,7 @@ public class Shout extends Command {
 
         for (String permission : p.getPermissions()) {
             if (permission.startsWith("shoutinvite.cooldown.")) {
-                String[] split = permission.split(".");
+                String[] split = permission.split("\\.");
                 coolDownTime = Integer.parseInt(split[2]) * 1000;
             }
         }

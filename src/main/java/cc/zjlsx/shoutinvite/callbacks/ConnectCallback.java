@@ -6,6 +6,9 @@ public class ConnectCallback implements Callback<Boolean> {
 
     @Override
     public void done(Boolean bool, Throwable throwable) {
+        if (!bool) {
+            return;
+        }
 
     }
 }
