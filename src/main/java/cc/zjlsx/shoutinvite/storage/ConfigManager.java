@@ -82,6 +82,7 @@ public class ConfigManager {
     }
 
     private void loadServerNames() {
+        serverNameMap.clear();
         Configuration serverSection = config.getSection("servers");
         for (String serverInfoName : serverSection.getKeys()) {
             String serverNickName = Color.s(serverSection.getString(serverInfoName));
