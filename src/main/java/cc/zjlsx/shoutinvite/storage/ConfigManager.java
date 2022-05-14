@@ -60,6 +60,8 @@ public class ConfigManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        load();
     }
 
     public void load() {
