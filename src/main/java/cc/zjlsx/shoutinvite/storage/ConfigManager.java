@@ -24,11 +24,14 @@ public class ConfigManager {
     public Configuration config;
     public int coolDownTime;
     public int expiryTime;
+    public boolean canBlockedServerSeeMessages;
+
+    public boolean canBlockedServerSeeMessages() {
+        return canBlockedServerSeeMessages;
+    }
 
     public List<String> blockedServers = new ArrayList<>();
-
     public Map<String, String> serverNameMap = new HashMap<>();
-
     private Main plugin;
 
     public ConfigManager(Main plugin) {
@@ -71,6 +74,8 @@ public class ConfigManager {
         expiryTime = config.getInt("times.expiry");
         //加载不能使用邀请指令的服务器
         blockedServers = config.getStringList("blockedServers");
+        //加载不能使用邀请指令的服务器是否能看到喊话的消息
+        canBlockedServerSeeMessages = config.getBoolean("canBlockedServerSeeMessages");
         //加载消息
         loadMessages();
         //加载自定义的服务器显示名

@@ -14,10 +14,8 @@ import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Shout extends Command {
 
@@ -41,11 +39,9 @@ public class Shout extends Command {
         }
         ProxiedPlayer p = (ProxiedPlayer) sender;
         //检查是否在不允许传送的服务器中
-        for (String blockedServer : configManager.getBlockedServers()) {
-            if (p.getServer().getInfo().getName().equals(blockedServer)) {
-                p.sendMessage(new TextComponent(Messages.In_Blocked_Server.getMessage()));
-                return;
-            }
+        if (isInBlockedServer(p)) {
+            p.sendMessage(new TextComponent(Messages.In_Blocked_Server.getMessage()));
+            return;
         }
 
         if (args.length == 0) {
@@ -99,7 +95,17 @@ public class Shout extends Command {
                 .replace("%player%", playerName)
                 .replace("%message%", msg))));
 
-        players.forEach(target -> target.sendMessage(inviteMessage));
+        if (configManager.canBlockedServerSeeMessages()) {
+            players.forEach(target -> target.sendMessage(inviteMessage));
+        } else {
+            for (ProxiedPlayer player : players) {
+                if (isInBlockedServer(player)) {
+                    continue;
+                }
+                player.sendMessage(inviteMessage);
+            }
+        }
+
 //        TextComponent inviteMessage = new TextComponent(plugin.getConfig().getString("message.invite-format").replace("&", "§"));
 
 //        if (args[0].contains("来")) {
@@ -125,6 +131,10 @@ public class Shout extends Command {
 //        } else {
 //            p.sendMessage(new TextComponent(Color.s("&c您的喇叭不足！")));
 //        }
+    }
 
+    public boolean isInBlockedServer(ProxiedPlayer player) {
+        //检查是否在不允许传送的服务器中
+        return configManager.getBlockedServers().contains(player.getServer().getInfo().getName());
     }
 }
