@@ -3,6 +3,7 @@ package cc.zjlsx.shoutinvite.tasks;
 import cc.zjlsx.shoutinvite.models.Announcement;
 import cc.zjlsx.shoutinvite.storage.AnnouncementManager;
 import cc.zjlsx.shoutinvite.utils.Color;
+import cc.zjlsx.shoutinvite.utils.LiteBansAddon;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
@@ -29,7 +30,7 @@ public class AnnouncementTask implements Runnable {
                 continue;
             }
             for (String message : announcementList.get(index).getMessages()) {
-                player.sendMessage(new TextComponent(Color.s(message)));
+                player.sendMessage(new TextComponent(LiteBansAddon.parse(Color.s(message))));
             }
         }
         index++;

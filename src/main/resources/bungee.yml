@@ -3,3 +3,4 @@ version: ${project.version}
 main: cc.zjlsx.shoutinvite.Main
 description: 跨服喊话邀请插件
 authors: [zjls,Coquettishpig]
+softDepends: [LiteBans]

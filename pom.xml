@@ -6,7 +6,7 @@
 
     <groupId>cc.zjlsx</groupId>
     <artifactId>ShoutInvite</artifactId>
-    <version>1.3.6</version>
+    <version>1.4</version>
     <packaging>jar</packaging>
 
     <name>ShoutInvite</name>
@@ -55,10 +55,13 @@
     </build>
 
     <repositories>
-
         <repository>
             <id>bungeecord-repo</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
@@ -81,6 +84,12 @@
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>5.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gitlab.ruany</groupId>
+            <artifactId>LiteBansAPI</artifactId>
+            <version>0.3.5</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
