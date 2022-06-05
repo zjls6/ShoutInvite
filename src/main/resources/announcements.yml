@@ -1,0 +1,34 @@
+settings:
+  interval: 200
+  disabledServers:
+    - "登录服"
+    - "login"
+announcements:
+  '1':
+    enabled: true
+    messages:
+      - ' &B&L欢迎来到一梦之初;w;'
+      - ''
+      - ' &c&l输入/hub 回到主大厅! '
+      - ' &c&l起床房间中/leave 回到起床大厅! '
+      - ' &c&l若游玩起床时断线可在起床大厅内输入/rejoin重新连接！'
+      - ' &c&l有什么BUG的欢迎反馈pwq '
+      - ''
+  '2':
+    enabled: true
+    messages:
+      - '&b&L欢迎来到一梦之初吖(*^▽^*)'
+      - ''
+      - '&c&l服务器QQ群:974519032'
+      - '&c&l彼得的粉丝群：739074156'
+      - '&c&l腐竹QQ:2167701402'
+      - ''
+  '3':
+    enabled: true
+    messages:
+      - '&B&L欢迎来到一梦之初吖(*^▽^*)'
+      - ''
+      - '&c&l坚决拒绝外挂,现在被封禁的人数:&6&l15&c&l名开纪者!'
+      - '&c&l遇到问题找腐竹或者志愿者解决吖~'
+      - '&c&lCPS超过38请联系2167701402发自证否则会吞方块以及封禁!'
+      - ''

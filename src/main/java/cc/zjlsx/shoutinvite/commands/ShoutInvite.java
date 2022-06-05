@@ -2,17 +2,14 @@ package cc.zjlsx.shoutinvite.commands;
 
 import cc.zjlsx.shoutinvite.Main;
 import cc.zjlsx.shoutinvite.enums.Messages;
+import cc.zjlsx.shoutinvite.utils.Color;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
-import net.md_5.bungee.config.ConfigurationProvider;
-import net.md_5.bungee.config.YamlConfiguration;
-
-import java.io.IOException;
 
 public class ShoutInvite extends Command {
 
-    private Main plugin;
+    private final Main plugin;
 
     public ShoutInvite(Main plugin) {
         super("shoutinvite", "", "shouti");
@@ -22,18 +19,16 @@ public class ShoutInvite extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(new TextComponent("&e用法：&b/shoutinvite reload"));
+            sender.sendMessage(new TextComponent(Color.s("&e用法：&b/shoutinvite reload")));
             return;
         }
         if (sender.hasPermission("shoutinvite.admin")) {
             if (args[0].equalsIgnoreCase("reload")) {
-                try {
-                    plugin.getConfigManager().setConfig(ConfigurationProvider.getProvider(YamlConfiguration.class).load(plugin.getConfigManager().getConfigFile()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+                plugin.getConfigManager().reload();
                 plugin.getConfigManager().load();
+
+                plugin.getAnnouncementManager().reload();
+                plugin.getAnnouncementManager().load();
 
                 sender.sendMessage(new TextComponent(Messages.Reload_Plugin.getMessage()));
             }

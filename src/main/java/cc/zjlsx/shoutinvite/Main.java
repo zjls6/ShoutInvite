@@ -6,6 +6,7 @@ import cc.zjlsx.shoutinvite.commands.ShoutInvite;
 import cc.zjlsx.shoutinvite.enums.Messages;
 import cc.zjlsx.shoutinvite.listeners.PlayerJoin;
 import cc.zjlsx.shoutinvite.models.InviteRequest;
+import cc.zjlsx.shoutinvite.storage.AnnouncementManager;
 import cc.zjlsx.shoutinvite.storage.ConfigManager;
 import cc.zjlsx.shoutinvite.storage.MySQL;
 import cc.zjlsx.shoutinvite.storage.SQLGetter;
@@ -21,6 +22,7 @@ public class Main extends Plugin {
     public SQLGetter data;
 
     public ConfigManager configManager;
+    public AnnouncementManager announcementManager;
 
     public List<InviteRequest> inviteRequests = new ArrayList<>();
 
@@ -29,6 +31,7 @@ public class Main extends Plugin {
         // Plugin startup logic
         // 初始化/加载配置文件
         configManager = new ConfigManager(this);
+        announcementManager = new AnnouncementManager(this);
 //        SQL = new MySQL(this);
 //        data = new SQLGetter(this);
 //        try {
