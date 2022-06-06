@@ -10,13 +10,13 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-import java.util.List;
+import java.util.Optional;
 
 public class InviteTeleport extends Command {
 
-    private Main plugin;
+    private final Main plugin;
 
-    private ConfigManager configManager;
+    private final ConfigManager configManager;
 
     public InviteTeleport(Main plugin) {
         super("itp");
@@ -42,12 +42,10 @@ public class InviteTeleport extends Command {
 //            }
 //
 //        }
-
         if (!(sender instanceof ProxiedPlayer)) {
             return;
         }
         ProxiedPlayer player = (ProxiedPlayer) sender;
-
         //检查是否在不允许传送的服务器中
         for (String blockedServer : configManager.getBlockedServers()) {
             if (player.getServer().getInfo().getName().equals(blockedServer)) {
@@ -55,25 +53,22 @@ public class InviteTeleport extends Command {
                 return;
             }
         }
-
         //itp <token> 该命令不允许玩家手动执行，无需帮助提示
         if (args.length != 1) {
             return;
         }
-
         String token = args[0];
 
-        List<InviteRequest> inviteRequests = plugin.getInviteRequests();
-        for (InviteRequest inviteRequest : inviteRequests) {
-            if (inviteRequest.getToken().toString().equals(token)) {
-                //判断该邀请是否过期
-                if (System.currentTimeMillis() - inviteRequest.getInviteTime() > configManager.getExpiryTime() * 1000L) {
-                    player.sendMessage(new TextComponent(Messages.Invitation_Expired.getMessage()));
-                    return;
-                }
-                player.connect(inviteRequest.getServerInfo(), new ConnectCallback());
-            }
+        Optional<InviteRequest> optionalInviteRequest = plugin.getInviteRequests().stream().filter(inviteRequest -> inviteRequest.getToken().toString().equals(token)).findFirst();
+        if (!optionalInviteRequest.isPresent()) {
+            return;
         }
-
+        InviteRequest inviteRequest = optionalInviteRequest.get();
+        //判断该邀请是否过期
+        if (System.currentTimeMillis() - inviteRequest.getInviteTime() > configManager.getExpiryTime() * 1000L) {
+            player.sendMessage(new TextComponent(Messages.Invitation_Expired.getMessage()));
+            return;
+        }
+        player.connect(inviteRequest.getServerInfo(), new ConnectCallback());
     }
 }
