@@ -1,5 +1,6 @@
 package cc.zjlsx.shoutinvite;
 
+import cc.zjlsx.shoutinvite.commands.BlockInvite;
 import cc.zjlsx.shoutinvite.commands.InviteTeleport;
 import cc.zjlsx.shoutinvite.commands.Shout;
 import cc.zjlsx.shoutinvite.commands.ShoutInvite;
@@ -15,6 +16,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 public class Main extends Plugin {
@@ -25,6 +27,7 @@ public class Main extends Plugin {
     public AnnouncementManager announcementManager;
 
     public List<InviteRequest> inviteRequests = new ArrayList<>();
+    public List<UUID> blockInvitePlayers = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -54,6 +57,8 @@ public class Main extends Plugin {
         getProxy().getPluginManager().registerCommand(this, new InviteTeleport(this));
         getProxy().getPluginManager().registerCommand(this, new ShoutInvite(this));
         getProxy().getPluginManager().registerCommand(this, new Shout(this));
+        getProxy().getPluginManager().registerCommand(this, new BlockInvite(this));
+
         getProxy().getPluginManager().registerListener(this, new PlayerJoin());
 
         getLogger().info(Messages.Enable.getMessage());

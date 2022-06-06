@@ -19,11 +19,9 @@ import java.util.stream.Collectors;
 
 public class Shout extends Command {
 
-    Map<UUID, Long> cooldowns = new HashMap<>();
-
-    private Main plugin;
-
-    private ConfigManager configManager;
+    private final Main plugin;
+    private final ConfigManager configManager;
+    Map<UUID, Long> playerCooldownMap = new HashMap<>();
 
     public Shout(Main plugin) {
         super("hh", "");
@@ -48,9 +46,9 @@ public class Shout extends Command {
             p.sendMessage(new TextComponent(Color.s("&c用法： /hh <消息>")));
             return;
         }
-        if (cooldowns.containsKey(p.getUniqueId())) {
+        if (playerCooldownMap.containsKey(p.getUniqueId())) {
             //玩家在HashMap中
-            Long time = cooldowns.get(p.getUniqueId());
+            Long time = playerCooldownMap.get(p.getUniqueId());
             if (time > System.currentTimeMillis()) {
                 //他们还在冷却当中（还有剩余时间）
                 long timeLeft = (time - System.currentTimeMillis()) / 1000;
@@ -95,15 +93,15 @@ public class Shout extends Command {
                 .replace("%player%", playerName)
                 .replace("%message%", msg))));
 
+        //自己能看到，屏蔽的人看不到消息
+        List<ProxiedPlayer> canSeePlayers = players.stream().filter(player -> !plugin.getBlockInvitePlayers().contains(player.getUniqueId())).collect(Collectors.toList());
+        if (!canSeePlayers.contains(p)) {
+            canSeePlayers.add(p);
+        }
         if (configManager.canBlockedServerSeeMessages()) {
-            players.forEach(target -> target.sendMessage(inviteMessage));
+            canSeePlayers.forEach(target -> target.sendMessage(inviteMessage));
         } else {
-            for (ProxiedPlayer player : players) {
-                if (isInBlockedServer(player)) {
-                    continue;
-                }
-                player.sendMessage(inviteMessage);
-            }
+            canSeePlayers.stream().filter(player -> !isInBlockedServer(player)).collect(Collectors.toList()).forEach(player -> player.sendMessage(inviteMessage));
         }
 
 //        TextComponent inviteMessage = new TextComponent(plugin.getConfig().getString("message.invite-format").replace("&", "§"));
@@ -127,7 +125,7 @@ public class Shout extends Command {
             }
         }
 
-        cooldowns.put(p.getUniqueId(), System.currentTimeMillis() + coolDownTime);
+        playerCooldownMap.put(p.getUniqueId(), System.currentTimeMillis() + coolDownTime);
 //        } else {
 //            p.sendMessage(new TextComponent(Color.s("&c您的喇叭不足！")));
 //        }

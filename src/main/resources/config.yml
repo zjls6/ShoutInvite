@@ -9,6 +9,8 @@ messages:
   in-cooldown: "&c你还需等待 &b&l %timeleft% &c秒才能使用此指令！"
   in-blocked-server: "&c你不能在该服务器执行此命令！"
   invitation-expired: "&c该邀请已过期"
+  block-invite-message: "&e已屏蔽所有喊话消息"
+  unblock-invite-message: "&a已解除屏蔽，你现在可以收到新的喊话消息了"
   reload-plugin: "&a插件配置重载成功"
 
 blockedServers:
