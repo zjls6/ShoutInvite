@@ -6,7 +6,7 @@
 
     <groupId>cc.zjlsx</groupId>
     <artifactId>ShoutInvite</artifactId>
-    <version>1.4.6</version>
+    <version>1.4.7.1</version>
     <packaging>jar</packaging>
 
     <name>ShoutInvite</name>
